@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+// Route::post('/register', [AuthController::class, 'register']);
+// Route::post('/login', [AuthController::class, 'login']);
+
+Route::get('/task-list', function () {
+    return view('tasks'); // Renders resources/views/tasks/index.blade.php
 });
+
+Route::get('/register', function () {
+    return view('register'); // Renders resources/views/tasks/index.blade.php
+});
+
+Route::get('/login', function () {
+    return view('login'); // Renders resources/views/tasks/index.blade.php
+});
+
