@@ -57,7 +57,7 @@
                 }),
                 success: function(response) {
                     alert('Registration successful!');
-                    window.location.href = "/login"; // Redirect to login page after success
+                    window.location.href = "/login"; 
                 },
                 error: function(xhr) {
                     alert('Registration failed: ' + JSON.stringify(xhr.responseJSON.errors));

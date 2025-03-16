@@ -257,8 +257,8 @@
                 data: JSON.stringify(updatedTaskData),
                 success: function() {
                     alert('Task updated successfully!');
-                    $('#editTaskModal').modal('hide'); // Close modal
-                    fetchTasks(); // Refresh task list
+                    $('#editTaskModal').modal('hide'); 
+                    fetchTasks(); 
                 },
                 error: function(err) {
                     alert('Failed to update task!');
