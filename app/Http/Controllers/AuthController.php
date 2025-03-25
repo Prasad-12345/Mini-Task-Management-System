@@ -34,11 +34,8 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            $token = auth()->login($user);
-
             return response()->json([
-                'message' => 'User registered successfully!',
-                'token' => $token,
+                'message' => 'User registered successfully!'
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([

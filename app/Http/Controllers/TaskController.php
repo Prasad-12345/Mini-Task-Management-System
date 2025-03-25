@@ -14,20 +14,20 @@ class TaskController extends Controller
         $query = Task::query();
 
         // Search by title
-        if ($request->has('search')) {
-            $query->where('title', 'like', '%' . $request->search . '%');
+        if ($request->has('title') && !empty($request->title)) {
+            $query->where('title', 'like', '%' . $request->title . '%');
         }
 
         // Filter by priority
-        if ($request->has('priority')) {
+        if ($request->has('priority') && !empty($request->priority)) {
             $query->where('priority', $request->priority);
         }
 
         // Filter by status
-        if ($request->has('status')) {
+        if ($request->has('status') && !empty($request->status)) {
             $query->where('status', $request->status);
         }
-        return $query->paginate(10);
+        return $query->paginate(5);
     }
 
     public function store(StoreTaskRequest $request)
@@ -49,7 +49,7 @@ class TaskController extends Controller
         $task = Task::find($id);
         if (!$task) return response()->json(['error' => 'Task not found'], 404);
 
-        $task->update($request->only(['title', 'priority', 'due_date', 'status']));
+        $task->update($request->only(['title', 'priority', 'due_date', 'status', 'description']));
         return response()->json($task);
     }
 

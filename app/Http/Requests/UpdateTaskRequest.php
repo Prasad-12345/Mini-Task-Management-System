@@ -25,10 +25,11 @@ class UpdateTaskRequest extends FormRequest
     {
         return [
             'id' => 'required|integer|exists:tasks,id',
-            'title' => 'sometimes|string|max:255',
-            'priority' => 'sometimes|in:Low,Medium,High',
-            'due_date' => 'sometimes|date|after:today',
-            'status' => 'sometimes|in:Pending,Completed'
+            'title' => 'required|string|max:255',
+            'priority' => 'required|in:Low,Medium,High',
+            // 'due_date' => 'required|date|after:today',
+            'due_date' => 'required|date',
+            'status' => 'required|in:Pending,Completed'
         ];
     }
 }

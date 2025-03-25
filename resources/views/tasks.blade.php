@@ -166,9 +166,17 @@
                 showError("Unauthorized! Please log in.");
             }
 
+            let title = $('#searchTask').val();
+            console.log(title);
+            let priority = $('#filterPriority').val();
+            let status = $('#filterStatus').val();
+
             $.ajax({
                 url: '/api/tasks',
                 method: 'GET',
+                data : {
+                    priority, status, title
+                },
                 headers: { 'Authorization': `Bearer ${token}` },
                 success: function(response) {
                     renderTasks(response.data);
@@ -288,29 +296,33 @@
 
         // Live Search by Task Title
         $('#searchTask').on('keyup', function() {
-            let value = $(this).val().toLowerCase();
-            $("#taskList tr").filter(function() {
-                $(this).toggle($(this).data("title").indexOf(value) > -1);
-            });
+            // let value = $(this).val().toLowerCase();
+            // $("#taskList tr").filter(function() {
+            //     $(this).toggle($(this).data("title").indexOf(value) > -1);
+            // });
+            fetchTasks()
         });
 
         // Filter Tasks by Priority & Status
-        function applyFilters() {
-            let selectedPriority = $('#filterPriority').val();
-            let selectedStatus = $('#filterStatus').val();
+        // function applyFilters() {
+        //     let selectedPriority = $('#filterPriority').val();
+        //     let selectedStatus = $('#filterStatus').val();
 
-            $("#taskList tr").each(function() {
-                let rowPriority = $(this).data("priority");
-                let rowStatus = $(this).data("status");
+        //     $("#taskList tr").each(function() {
+        //         let rowPriority = $(this).data("priority");
+        //         let rowStatus = $(this).data("status");
 
-                let priorityMatch = selectedPriority === "" || rowPriority === selectedPriority;
-                let statusMatch = selectedStatus === "" || rowStatus === selectedStatus;
+        //         let priorityMatch = selectedPriority === "" || rowPriority === selectedPriority;
+        //         let statusMatch = selectedStatus === "" || rowStatus === selectedStatus;
 
-                $(this).toggle(priorityMatch && statusMatch);
-            });
-        }
+        //         $(this).toggle(priorityMatch && statusMatch);
+        //     });
+        // }
 
-        $('#filterPriority, #filterStatus').on('change', applyFilters);
+        // $('#filterPriority, #filterStatus').on('change', applyFilters);
+        $('#filterPriority, #filterStatus').on('change', function(){
+            fetchTasks();
+        });
 
         // Reset Filters
         $('#resetFilters').click(function() {
